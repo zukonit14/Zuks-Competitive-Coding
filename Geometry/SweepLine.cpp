@@ -48,13 +48,13 @@ ll cc[]={1,1,0,-1,-1,-1,0,1};
 
 ll n,q,a[MAXN],ft[MAXN],ql[MAXN],qr[MAXN],qy[MAXN],ans[MAXN];
 
-void upd(ll i,ll x) //for getting powers of 2 till n
+void upd(ll i,ll x) 
 {
     for(++i;i<n;i+=i&-i)
         ft[i]+=x;
 }
 
-ll qry(ll i)    //for getting first power of 2 less than i
+ll qry(ll i)    
 {
     ll r=0;
     for(;i;i-=i&-i)
