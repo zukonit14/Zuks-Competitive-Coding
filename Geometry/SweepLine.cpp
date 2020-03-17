@@ -65,11 +65,18 @@ ll qry(ll i)    //for getting first power of 2 less than i
 struct event
 {
     ll y,t,i;
-    bool operator<(const event &o)  const
-    {
-        return make_pair(y,t)<make_pair(o.y,o.t);
-    }
+    // bool operator<(const event &o)  const
+    // {
+    //     return make_pair(y,t)<make_pair(o.y,o.t);
+    // }
 };
+
+bool comp(const event &a,const event &b)
+{   
+    if(a.y==b.y)
+        return (a.t<b.t);
+    return (a.y<b.y);
+}
 signed main()
 {
     bolt;
@@ -86,7 +93,7 @@ signed main()
         }
         for(ll i=0;i<q;i++)
             ve.pb({qy[i],2,i}); //QUERIES ADDED
-        sort(all(ve));//SORTING QUERIES ACCORDING TO Y
+        sort(all(ve),comp);//SORTING QUERIES ACCORDING TO Y
         //OUR SWEEPLINE IS PARALLEL TO X AXIS AND MOVING UPWARDS
         for(event e: ve)
         {
@@ -103,4 +110,4 @@ signed main()
 
 
 //PROBLEM 1: https://www.codechef.com/problems/LAZER
-//SOLUTION 1: https://www.codechef.com/viewsolution/30539117
+//SOLUTION 1: https://www.codechef.com/viewsolution/30539369
