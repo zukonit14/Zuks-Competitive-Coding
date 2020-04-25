@@ -102,7 +102,7 @@ vector<point> convex_hull(vector<point> &v)
 }
 
 //Problem 0: https://www.codechef.com/ACM16CHN/problems/CHN16B
-//Solution 0: Print the sum of cost of all points in Convex Hull
+//Solution 0: Print the sum of cost of all points in Convex Hull https://ideone.com/lEt7K1
 
 //Problem 1 (Polygon Congruence): http://codeforces.com/contest/1017/problem/E
 //Solution 1: http://codeforces.com/contest/1017/submission/41401690
