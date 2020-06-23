@@ -88,4 +88,7 @@ void convex_hull(vector<point> &a)
         hulls.pb(HULL(up));
     }
 }
- 
+//ALSO ALL PROBLEMS FROM. GRAHAM SCAN CONVEX HULL.CPP
+
+//Problem 0:https://www.codechef.com/JUNE20A/problems/CONTAIN
+//Solution 0: https://www.codechef.com/viewsolution/34657860
