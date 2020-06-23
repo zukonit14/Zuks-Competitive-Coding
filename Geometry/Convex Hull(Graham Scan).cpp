@@ -65,7 +65,24 @@ bool ccw(point &a, point &b, point &c)
 	int area=a.x*(b.y-c.y) + b.x*(c.y-a.y) + c.x*(a.y-b.y);
 	return area>0;
 }
-
+// 1 => Strictly inside; -1 => Border; 0 => Outside
+int point_in_poly(const vector<Point> & poly, Point p){
+    int many = 0;
+    for(int i = 0; i < (int)poly.size(); i++){
+        Point a = poly[i], b = poly[i + 1 < (int) poly.size() ? i + 1 : 0];
+        if(a.x > b.x) swap(a, b);
+        if(a.x <= p.x && p.x <= b.x){
+            if(abs(a.x - b.x) == 0){
+                if(min(a.y, b.y) <= p.y && p.y <= max(a.y, b.y)) return -1;
+            } else {
+                double y = a.y + 1. * (b.y - a.y) / (b.x - a.x) * (p.x - a.x);
+                if(abs(y - p.y) <= E) return -1;
+                if(y >= p.y && p.x < b.x) many++;
+            }
+        }
+    }
+    return many % 2;
+}
 vector<point> convex_hull(vector<point> &v)
 {
 	if(v.size()==1)
