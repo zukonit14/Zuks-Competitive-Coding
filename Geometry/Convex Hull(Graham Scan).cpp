@@ -66,7 +66,7 @@ bool ccw(point &a, point &b, point &c)
 	return area>0;
 }
 // 1 => Strictly inside; -1 => Border; 0 => Outside
-int point_in_poly(const vector<Point> & poly, Point p){
+int point_in_poly(const vector<point> & poly, point p){
     int many = 0;
     for(int i = 0; i < (int)poly.size(); i++){
         Point a = poly[i], b = poly[i + 1 < (int) poly.size() ? i + 1 : 0];
