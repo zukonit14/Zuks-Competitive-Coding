@@ -2,7 +2,7 @@ ll bit[MAXN];
 
 void upd(ll i,ll x) 
 {
-    for(++i;i<n;i+=i&-i)
+    for(;i<n;i+=i&-i)
         bit[i]+=x;
 }
 
