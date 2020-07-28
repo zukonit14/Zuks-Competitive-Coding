@@ -1,6 +1,6 @@
 ll t[4*MAXN];
 
-void build(ll a[],ll v,ll tl, ll tr) {
+void build(ll a[],ll v,ll tl, ll tr) {      //parameters: a[](the input array), v(the index of the current vertex), and the boundaries tl and tr of the current segment
     if (tl == tr) {
         t[v] = a[tl];
     } else {
@@ -11,7 +11,7 @@ void build(ll a[],ll v,ll tl, ll tr) {
     }
 }
 
-ll query(ll v, ll tl, ll tr, ll l, ll r) {
+ll query(ll v, ll tl, ll tr, ll l, ll r) {  // l,r: boundries of the query
     if (l > r) 
         return 0;
     if (l == tl && r == tr) {
@@ -34,3 +34,6 @@ void update(ll v, ll tl, ll tr, ll pos, ll new_val) {
         t[v] = t[v*2] + t[v*2+1];
     }
 }
+
+    //forci(0, n)  cin >> a[i];
+    //build(a, 1, 0, n - 1);
