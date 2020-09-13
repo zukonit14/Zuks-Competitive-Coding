@@ -1,5 +1,4 @@
-vector<ll>order;
-vector<int> order; //Stores the Topological Order
+vector<ll>order; //Stores the Topological Order
 
 bool toposort(ll n) //Returns 1 if there exists a toposort, 0 if there is a cycle
 {	
