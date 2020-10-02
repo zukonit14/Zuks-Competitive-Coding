@@ -1,49 +1,50 @@
+//use it by DSU d(N) where n is the number upto which it is supposed to constructed...
 struct DSU
 {
-    ll connected;
-    vector<ll> par, sz;
+    int connected;
+    int par[MAX], size[MAX];
 
-    void init(ll n)
-    {
-        par = sz = vector<ll> (n + 1, 0);
-        for (ll i = 1; i <= n; i++)
-            par[i] = i, sz[i] = 1;
-        connected = n;
-    }
+   // DSU() {}
 
-    ll getpar(ll u)
+    DSU(int n)
     {
-        while (u != par[u])
+        for(int i=1;i<=n;i++)
         {
-            par[u] = par[par[u]];
-            u = par[u];
+            par[i]=i;
+            size[i]=1;
         }
-        return u;
+        connected=n;
     }
 
-    ll getsize(ll u)
+    int getPar(int k)
     {
-        return sz[getpar(u)];
+        while(k!=par[k])
+        {
+            par[k]=par[par[k]];
+            k=par[k];
+        }
+        return k;
     }
 
-    void unite(ll u, ll v)
+    int getSize(int k)
     {
-        ll par1 = getpar(u), par2 = getpar(v);
+        return size[getPar(k)];
+    }
 
-        if (par1 == par2)
+    void unite(int u, int v)
+    {
+        int par1=getPar(u), par2=getPar(v);
+
+        if(par1==par2)
             return;
 
         connected--;
 
-        if (sz[par1] > sz[par2])
+        if(size[par1]>size[par2])
             swap(par1, par2);
 
-        sz[par2] += sz[par1];
-        sz[par1] = 0;
-        par[par1] = par[par2];
+        size[par2]+=size[par1];
+        size[par1]=0;
+        par[par1]=par[par2];
     }
 };
-
-
-//DSU dsu;
-//dsu.init(n);
