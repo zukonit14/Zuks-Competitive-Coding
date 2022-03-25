@@ -1,0 +1,30 @@
+<snippet>
+	<content><![CDATA[
+void dijkstra(ll s) {
+
+    d[s] = 0;
+    set<pair<ll, ll>> q;
+    q.insert({0, s});
+    while (!q.empty()) {
+        ll v = q.begin()->second;
+        q.erase(q.begin());
+
+        for (auto edge : g[v]) {
+            ll to = edge.first;
+            ll len = edge.second;
+
+            if (d[v] + len < d[to]) {
+                q.erase({d[to], to});
+                d[to] = d[v] + len;
+                p[to] = v;
+                q.insert({d[to], to});
+            }
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dijkstra</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

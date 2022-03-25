@@ -1,0 +1,55 @@
+<snippet>
+	<content><![CDATA[
+ll t[4 * MAXN];
+
+void build(ll a[], ll v, ll tl, ll tr) {    //parameters: a[](the input array), v(the index of the current vertex), and the boundaries tl and tr of the current segment
+    if (tl == tr) {
+        t[v] = a[tl];
+    } else {
+        ll tm = (tl + tr) / 2;
+        build(a, v * 2, tl, tm);
+        build(a, v * 2 + 1, tm + 1, tr);
+        t[v] = t[v * 2] + t[v * 2 + 1];
+    }
+}
+
+ll query(ll v, ll tl, ll tr, ll l, ll r) {  // l,r: boundries of the query
+    if (l > r)
+        return 0;    //update INF for RMQ (default val);
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    ll tm = (tl + tr) / 2;
+    return query(v * 2, tl, tm, l, min(r, tm))
+           + query(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
+}
+
+void update(ll v, ll tl, ll tr, ll pos, ll new_val) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        ll tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v * 2, tl, tm, pos, new_val);
+        else
+            update(v * 2 + 1, tm + 1, tr, pos, new_val);
+        t[v] = t[v * 2] + t[v * 2 + 1];
+    }
+}
+
+void update(ll pos, ll new_val)
+{
+    update(1, 0, n - 1, pos, new_val);
+}
+ll query(ll l, ll r)
+{
+    return query(1, 0, n - 1, l, r);
+}
+//forci(0, n)  cin >> a[i];
+//build(a, 1, 0, n - 1);        //{v,tl,tr}={1,0,n-1};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segment_tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

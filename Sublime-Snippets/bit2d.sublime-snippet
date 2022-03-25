@@ -1,0 +1,30 @@
+<snippet>
+	<content><![CDATA[
+
+ll bit[MAX2N][MAX2N];
+void upd(ll i, ll j, ll v)
+{
+	ll x, y;
+	for (x = i; x < MAX2N; x += (x & -x))
+	{
+		for (y = j; y < MAX2N; y += (y & -y))
+			bit[x][y] += v;
+	}
+}
+
+ll qry(ll i, ll j)
+{
+	ll r = 0;
+	ll x, y;
+	for (x = i; x; x -= x & -x)
+		for (y = j; y; y -= y & -y)
+			r += bit[x][y];
+	return r;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bit2d</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

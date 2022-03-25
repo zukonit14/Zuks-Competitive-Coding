@@ -1,0 +1,47 @@
+<snippet>
+	<content><![CDATA[
+struct Segment
+{
+	Point P, Q;
+	int idx;
+ 
+	Segment()
+	{
+		idx = -1;
+	}
+ 
+	Segment(double x1, double y1, double x2, double y2, int _idx)
+	{
+		P = Point(x1, y1);
+		Q = Point(x2, y2);
+		idx = _idx;
+	}
+ 
+	Segment(Point _P, Point _Q, int _idx)
+	{
+		P = _P, Q = _Q, idx = _idx;
+	}
+ 	
+ 	Point intersect(Segment ls)
+ 	{	
+ 		Line l1 = Line(P, Q);
+ 		Line l2 = Line(ls.P, ls.Q);
+ 		if(l1.parallel(l2))
+ 			return Point();
+ 		Point c = l1.intersect(l2);
+ 		return c.between(P, Q) && c.between(ls.P, ls.Q) ? c : Point();
+ 	}
+
+	double get_y(double &x) const
+	{
+		if(abs(P.x - Q.x)<EPS)
+			return P.y;
+		return P.y + (Q.y - P.y) * (x - P.x) / (Q.x - P.x);
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>struct_segment</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

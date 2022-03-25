@@ -1,0 +1,46 @@
+<snippet>
+	<content><![CDATA[
+ll pw[MAXN][2];          //two arrays for two diff mods;
+ll inv_pw[MAXN][2];
+pair<ll, ll> H[MAXN];    //prefix substring hashing values;
+ll mod1 = 1e9 + 7, mod2 = 1e9 + 9; //even more randomise by taking array of 15-20 mods and take any 2 at runtime;
+
+void precalc(ll k) {        // this is for calculating base^power to use in build;
+    ll modk = (k == 0 ? mod1 : mod2);
+    pw[0][k] = 1;
+    for (ll i = 1; i < MAXN; i++)
+        pw[i][k] = mul(pw[i - 1][k], base, modk);
+
+    ll pw_inv = inv(base, modk);
+    inv_pw[0][k] = 1;
+    for (ll i = 1; i < MAXN; i++)
+        inv_pw[i][k] = mul(inv_pw[i - 1][k], pw_inv, modk);
+}
+
+void build(string s) {
+    ll n = s.length();
+    for (ll i = 0; i < n ; ++i) {
+        H[i].first = add((i == 0) ? 0 : H[i - 1].first, mul(pw[i][0], s[i] - 'a' + 1, mod1), mod1);
+        H[i].second = add((i == 0) ? 0 : H[i - 1].second, mul(pw[i][1], s[i] - 'a' + 1, mod2), mod2);
+    }
+}
+
+pair<ll, ll> getHash(ll x , ll y) {
+    pair<ll, ll> res;
+    res.first = sub(H[y].first, (x == 0) ? 0 : H[x - 1].first, mod1);
+    res.second = sub(H[y].second, (x == 0) ? 0 : H[x - 1].second, mod2);
+    res.first = mul(res.first , (x == 0) ? 1 : inv_pw[x][0], mod1);
+    res.second = mul(res.second , (x == 0) ? 1 : inv_pw[x][1], mod2);
+    return res;
+}
+//precalc(0);
+//precalc(1);
+//build(s);
+//base is random from 26-155; prefer 26-40;
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>hashing</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

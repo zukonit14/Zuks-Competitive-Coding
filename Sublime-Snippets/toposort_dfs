@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+//Also another implementation for finding order if toposort exists;
+void dfs(ll u)
+{
+    vis[u] = 1;
+    for (auto it : g[u])
+        if (!vis[it])    dfs(it);
+    order.pb(u);
+}
+void toposort()     //take n as parameter and at last return (ans.size()==n) to check whether topo exist
+{
+    for (ll i = 1; i <= n; i++)
+    {
+        if (!vis[i])
+            dfs(i);
+    }
+    reverse(all(order));
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>toposort_dfs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

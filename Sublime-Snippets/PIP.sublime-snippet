@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+// 1 => Strictly inside; -1 => Border; 0 => Outside
+int point_in_poly(const vector<point> & poly, point p){
+    int many = 0;
+    for(int i = 0; i < (int)poly.size(); i++){
+        Point a = poly[i], b = poly[i + 1 < (int) poly.size() ? i + 1 : 0];
+        if(a.x > b.x) swap(a, b);
+        if(a.x <= p.x && p.x <= b.x){
+            if(abs(a.x - b.x) == 0){
+                if(min(a.y, b.y) <= p.y && p.y <= max(a.y, b.y)) return -1;
+            } else {
+                double y = a.y + 1. * (b.y - a.y) / (b.x - a.x) * (p.x - a.x);
+                if(abs(y - p.y) <= E) return -1;
+                if(y >= p.y && p.x < b.x) many++;
+            }
+        }
+    }
+    return many % 2;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>point_inside_polygon</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

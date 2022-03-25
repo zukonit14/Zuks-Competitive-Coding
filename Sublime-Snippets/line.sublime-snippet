@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+struct Line
+{
+	double a, b, c;
+
+	Line(Point P, Point Q)
+	{
+		if(abs(P.x - Q.x) < EPS)
+		{
+			a = 1;
+			b = 0;
+			c = -P.x;
+		}
+		else
+		{
+			a = (P.y - Q.y) / (Q.x - P.x);
+			b = 1.0;
+			c = -(a * P.x + P.y);
+		}
+	}
+
+	bool parallel(Line l)
+	{
+		return abs(a - l.a) < EPS && abs(b - l.b) < EPS;
+	}
+
+	Point intersect(Line l)
+	{
+		if(parallel(l))
+			return Point();	
+		double x = (b * l.c - c * l.b) / (a * l.b - b * l.a);
+		double y;
+		if(abs(b) < EPS)
+			y = -l.a * x - l.c;
+		else
+			y = -a * x - c;
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>struct_line</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

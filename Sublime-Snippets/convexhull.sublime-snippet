@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+vector<point> convex_hull(vector<point> &v)
+{
+	if(v.size()==1)
+		return v;
+
+	sort(v.begin(), v.end(), comp);
+
+	point p1=v[0], p2=v.back();
+
+	vector<point> up, down;
+	up.push_back(p1);
+	down.push_back(p1);
+
+	for(int i=1;i<v.size();i++)
+	{
+		if(i==v.size()-1 || cw(p1, v[i], p2))
+		{
+			while(up.size()>=2 && !cw(up[up.size()-2], up[up.size()-1], v[i]))
+				up.pop_back();
+			up.push_back(v[i]);
+		}
+		if(i==v.size()-1 || ccw(p1, v[i], p2))
+		{
+			while(down.size()>=2 && !ccw(down[down.size()-2], down[down.size()-1], v[i]))
+				down.pop_back();
+			down.push_back(v[i]);
+		}
+	}
+
+	for(int i=down.size()-2;i>0;i--)
+		up.push_back(down[i]);
+
+	return up;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>convex_hull</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

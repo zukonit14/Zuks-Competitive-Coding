@@ -1,0 +1,54 @@
+<snippet>
+	<content><![CDATA[
+struct centroid_decomposition{
+    int nodes = 0;
+    int subtree[N];
+    int parentcentroid[N];
+ 
+    void dfs(int u, int par)
+    {
+        nodes++;
+        subtree[u] = 1;
+        for(auto &it:g[u])
+        {
+            if(it == par)
+                continue;
+            dfs(it, u);
+            subtree[u] += subtree[it];
+        }
+    }
+ 
+    int centroid(int u, int par)
+    {
+        for(auto &it:g[u])
+        {
+            if(it == par)
+                continue;
+            if(subtree[it] > (nodes >> 1))
+                return centroid(it, u);
+        }
+        return u;
+    }
+ 
+    void decompose(int u, int par)
+    {
+        nodes = 0;
+        dfs(u, u);
+        int node = centroid(u, u);
+        parentcentroid[node] = par;
+        for(auto it:g[node])
+        {
+            g[it].erase(node);
+            decompose(it, node);
+        }
+    }
+};
+// centroid_decomposition tree;
+// tree.decompose(1,0);
+// play with the decompose function and instead of par pass anything of our interst for finding answer;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>centroid decomposition</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

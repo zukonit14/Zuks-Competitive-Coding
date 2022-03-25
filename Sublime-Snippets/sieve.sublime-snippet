@@ -1,0 +1,36 @@
+<snippet>
+	<content><![CDATA[
+ll spf[MAXN+10];
+void sieve()
+{
+    for (ll i = 1; i <= MAXN; i++)
+        spf[i] = -1;
+    spf[1] = 1;
+    for (ll i = 2; i <= MAXN; i++)
+    {
+        if (spf[i] > 0)    continue;
+        spf[i] = i;
+        for (ll j = i * i; j <= MAXN; j += i)
+        {
+            if (spf[j] == -1)
+                spf[j] = i;
+        }
+    }
+}
+vector<ll> getfactors(ll n)         //get factors of any number <=MAXN in logN;
+{
+    vector<ll>ans;
+    while (n != 1)
+    {
+        ans.pb(spf[n]);
+        n /= spf[n];
+    }
+    return ans;
+}
+// sieve();
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>sieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

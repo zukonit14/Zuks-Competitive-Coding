@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+ll bit[MAXN+10];
+
+void upd(ll i,ll x) 
+{
+    i++;
+    for(;i<MAXN;i+=i&-i)
+        bit[i]+=x;
+}
+
+ll qry(ll i)    
+{
+    ll r=0;
+    i++;
+    for(;i;i-=i&-i)
+        r+=bit[i];
+    return r;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bit</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

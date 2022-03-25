@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+struct BIT
+{
+    ll N;
+    vector<ll> bit;
+
+    void init(ll n)
+    {
+        N = n + 5;
+        bit.assign(n + 5, 0);
+    }
+
+    void upd(ll i, ll x)
+    {
+        i++;
+        for (; i < N; i += i & -i)
+            bit[i] += x;
+    }
+
+    ll qry(ll i)
+    {
+        ll r = 0;
+        i++;
+        for (; i; i -= i & -i)
+            r += bit[i];
+        return r;
+    }
+    void show()
+    {
+        trace(bit);
+    }
+};
+// BIT b;
+// b.init(n);
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bit_struct</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

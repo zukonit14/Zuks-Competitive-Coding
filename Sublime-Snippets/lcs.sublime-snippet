@@ -1,0 +1,39 @@
+<snippet>
+	<content><![CDATA[
+ll dp[s.length()+5][t.length()+5];ms(dp,0);
+ll n=s.length(),m=t.length();
+forci(1,s.length()+1)
+{
+    forcj(1,t.length()+1)
+    {
+        if(s[i-1]==t[j-1])  //matches
+            dp[i][j]=dp[i-1][j-1]+1;
+        else        //doesnt matches
+            dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+    }
+}
+ll val=dp[n][m];
+string ans;
+ll i=n,j=m;
+while(i&&j)
+{
+    if(dp[i][j]!=max(dp[i-1][j],dp[i][j-1]))
+    {
+        ans.pb(s[i-1]);i--;j--;
+    }
+    else
+    {
+        if(dp[i][j]==dp[i-1][j])
+            i--;
+        else
+            j--;
+    }
+}
+reverse(all(ans));
+cout<<ans;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>lcs</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
